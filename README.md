@@ -16,8 +16,8 @@ cp env.example .env
 
 Edit `.env` with your Elasticsearch configuration:
 ```env
-REACT_APP_ELASTICSEARCH_ENDPOINT=https://your-deployment.es.us-east-1.aws.cloud.es.io
-REACT_APP_ELASTICSEARCH_API_KEY=your_api_key_here
+VITE_ELASTICSEARCH_ENDPOINT=https://your-deployment.es.us-east-1.aws.cloud.es.io
+VITE_ELASTICSEARCH_API_KEY=your_api_key_here
 ```
 
 ### 3. Start Development Server

@@ -3,7 +3,6 @@
 interface ImportMetaEnv {
   readonly VITE_ELASTICSEARCH_ENDPOINT: string
   readonly VITE_ELASTICSEARCH_API_KEY: string
-  readonly VITE_SEARCH_APPLICATION_NAME: string
   readonly VITE_DEBUG: string
 }
 

@@ -23,8 +23,8 @@ import './App.css';
 
 // Initialize the Elasticsearch connector
 const connector = new ElasticsearchAPIConnector({
-  host: 'https://ae7515e9dbf14d91a98aa3e445f80c9e.us-east-2.aws.elastic-cloud.com:443',
-  apiKey: 'T3M5M1Q1Z0Jtdl96N1dGNjN5emY6NkExLXJNbHMxblpndVRsT01ZZ3hkZw==',
+  host: import.meta.env.VITE_ELASTICSEARCH_ENDPOINT || 'https://ae7515e9dbf14d91a98aa3e445f80c9e.us-east-2.aws.elastic-cloud.com:443',
+  apiKey: import.meta.env.VITE_ELASTICSEARCH_API_KEY || '',
   index: 'search-emory-main,search-emory-news'
 });
 
