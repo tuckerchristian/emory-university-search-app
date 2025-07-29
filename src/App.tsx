@@ -11,6 +11,7 @@ import {
   Paging,
   WithSearch
 } from '@elastic/react-search-ui';
+import CustomSearchBox from './CustomSearchBox';
 import {
   BooleanFacet,
   Layout,
@@ -25,7 +26,7 @@ import './App.css';
 const connector = new ElasticsearchAPIConnector({
   host: import.meta.env.VITE_ELASTICSEARCH_ENDPOINT || 'https://ae7515e9dbf14d91a98aa3e445f80c9e.us-east-2.aws.elastic-cloud.com:443',
   apiKey: import.meta.env.VITE_ELASTICSEARCH_API_KEY || '',
-  index: 'search-emory-main,search-emory-news'
+  index: 'search-emory-combined'
 });
 
 const config: SearchDriverOptions = {
@@ -51,29 +52,62 @@ const config: SearchDriverOptions = {
     facets: {
       _index: { type: 'value' }
     }
-  }
+  },
+
 };
 
 function App() {
+  const handleLogoLoad = () => {
+    console.log('Emory logo loaded successfully');
+  };
+
+  const handleLogoError = () => {
+    console.error('Failed to load Emory logo');
+  };
+
   return (
     <SearchProvider config={config}>
       <WithSearch
-        mapContextToProps={({ wasSearched }) => ({
-          wasSearched
+        mapContextToProps={({ wasSearched, error }) => ({
+          wasSearched,
+          error
         })}
       >
-        {({ wasSearched }) => {
+        {({ wasSearched, error }) => {
           return (
             <div className="App">
               <ErrorBoundary>
+                {error && (
+                  <div style={{ 
+                    background: '#fee2e2', 
+                    color: '#dc2626', 
+                    padding: '1rem', 
+                    margin: '1rem',
+                    borderRadius: '8px',
+                    border: '1px solid #fecaca'
+                  }}>
+                    <strong>Search Error:</strong> {error}
+                  </div>
+                )}
                 <Layout
                   header={
                     <div className="search-header">
-                      <h1>Emory Search</h1>
+                      <div className="emory-logo">
+                        <img 
+                          src="/emory-logo.png" 
+                          alt="Emory University" 
+                          onLoad={handleLogoLoad}
+                          onError={handleLogoError}
+                        />
+                        <span>Emory Logo</span>
+                      </div>
+                      <h1>Emory University</h1>
                       <p>Search across Emory University's main site and news content</p>
-                      <SearchBox 
+                      <CustomSearchBox 
                         debounceLength={300}
                         searchAsYouType={true}
+                        autocompleteMinimumCharacters={3}
+                        autocompleteSuggestions={true}
                       />
                     </div>
                   }

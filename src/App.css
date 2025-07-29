@@ -1,190 +1,369 @@
-.App {
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  background-color: white;
+  color: #1a202c;
+  line-height: 1.6;
 }
 
-.search-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Header styles */
 .search-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 40px 30px;
   text-align: center;
+  padding: 2rem 1rem 1rem;
+  background: white;
+  color: #1a202c;
 }
 
 .search-header h1 {
-  margin: 0 0 10px 0;
   font-size: 2.5rem;
   font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+  color: #1a202c;
 }
 
 .search-header p {
-  margin: 0;
   font-size: 1.1rem;
-  opacity: 0.9;
+  color: #6b7280;
+  font-weight: 400;
 }
 
+/* Logo placeholder */
+.emory-logo {
+  width: 120px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background-color: transparent;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  border: none;
+  position: relative;
+}
+
+.emory-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.emory-logo span {
+  display: block;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.emory-logo img {
+  display: block;
+}
+
+.emory-logo span {
+  display: none;
+}
+
+/* Search box styles */
 .search-box {
-  padding: 30px;
-  background: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .search-input {
   width: 100%;
-  padding: 15px 20px;
-  font-size: 1.1rem;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.3s ease;
+  padding: 1rem 1.5rem;
+  font-size: 1.125rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: white;
+  color: #1a202c;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .search-input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.loading, .error, .results-info, .no-results {
-  padding: 20px 30px;
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Search UI component overrides */
+.sui-search-box {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.sui-search-box__input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.125rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: white;
+  color: #1a202c;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.sui-search-box__input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.sui-search-box__input::placeholder {
+  color: #9ca3af;
+}
+
+/* Layout overrides */
+.sui-layout {
+  background-color: white;
+}
+
+.sui-layout__header {
+  background: white;
+  padding: 2rem 1rem 1rem;
   text-align: center;
 }
 
-.loading {
-  background: #f8f9fa;
-  color: #6c757d;
+.sui-layout__body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.sui-layout__main {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Results styles */
+.sui-results-list {
+  padding: 0;
+}
+
+.sui-result {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.sui-result:hover {
+  background-color: #f9fafb;
+}
+
+.sui-result__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+}
+
+.sui-result__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sui-result__title a:hover {
+  text-decoration: underline;
+}
+
+.sui-result__url {
+  color: #059669;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.sui-result__snippet {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Facet styles */
+.sui-facet {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.sui-facet__title {
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+  color: #374151;
+}
+
+.sui-facet__values {
+  padding: 0.5rem 0;
+}
+
+.sui-facet__value {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sui-facet__value:hover {
+  background-color: #f3f4f6;
+}
+
+.sui-facet__value--selected {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+/* Pagination styles */
+.sui-paging {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+}
+
+.sui-paging__button {
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  color: #374151;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sui-paging__button:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.sui-paging__button--active {
+  background-color: #1e40af;
+  color: white;
+  border-color: #1e40af;
+}
+
+/* Loading and error states */
+.loading, .error, .no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
 }
 
 .error {
-  background: #f8d7da;
-  color: #721c24;
-  border-left: 4px solid #dc3545;
+  color: #dc2626;
 }
 
-.results-info {
-  background: #e7f3ff;
-  color: #0c5460;
-  border-left: 4px solid #17a2b8;
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-header h1 {
+    font-size: 2rem;
+  }
+  
+  .search-header p {
+    font-size: 1rem;
+  }
+  
+  .search-input {
+    font-size: 1rem;
+    padding: 0.875rem 1.25rem;
+  }
+  
+  .sui-layout__body {
+    padding: 1rem 0.5rem;
+  }
 }
 
-.no-results {
-  background: #fff3cd;
-  color: #856404;
-  border-left: 4px solid #ffc107;
-}
-
-.results-container {
-  padding: 0 30px 30px;
-}
-
+/* Custom result display */
 .result-item {
-  padding: 25px 0;
-  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
 }
 
-.result-item:last-child {
-  border-bottom: none;
+.result-item:hover {
+  background-color: #f9fafb;
 }
 
 .result-title {
-  margin: 0 0 10px 0;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 .result-title a {
-  color: #1a73e8;
+  color: #1e40af;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
 .result-title a:hover {
-  color: #1557b0;
   text-decoration: underline;
 }
 
 .result-meta {
   display: flex;
-  gap: 15px;
-  margin-bottom: 12px;
-  font-size: 0.9rem;
-  color: #6c757d;
-  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: #6b7280;
 }
 
 .result-category {
-  background: #e3f2fd;
-  color: #1976d2;
-  padding: 4px 8px;
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-weight: 500;
 }
 
 .result-date {
-  color: #6c757d;
-}
-
-.result-score {
-  color: #28a745;
-  font-weight: 500;
+  color: #6b7280;
 }
 
 .result-content {
-  margin: 0 0 15px 0;
+  color: #4b5563;
   line-height: 1.6;
-  color: #495057;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-bottom: 0.75rem;
 }
 
 .result-tags {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .result-tag {
-  background: #f8f9fa;
-  color: #495057;
-  padding: 4px 8px;
+  background-color: #f3f4f6;
+  color: #374151;
+  padding: 0.25rem 0.5rem;
   border-radius: 4px;
-  font-size: 0.8rem;
-  border: 1px solid #dee2e6;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .App {
-    padding: 10px;
-  }
-  
-  .search-header {
-    padding: 30px 20px;
-  }
-  
-  .search-header h1 {
-    font-size: 2rem;
-  }
-  
-  .search-box {
-    padding: 20px;
-  }
-  
-  .results-container {
-    padding: 0 20px 20px;
-  }
-  
-  .result-meta {
-    flex-direction: column;
-    gap: 8px;
-  }
+  font-size: 0.75rem;
+  font-weight: 500;
 } 

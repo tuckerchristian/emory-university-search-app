@@ -13,6 +13,7 @@
   "dependencies": {
     "@elastic/react-search-ui": "^1.24.0",
     "@elastic/react-search-ui-views": "^1.24.0",
+    "@elastic/search-application-client": "^8.9.0-2",
     "@elastic/search-ui": "^1.24.0",
     "@elastic/search-ui-elasticsearch-connector": "^1.24.1",
     "react": "^18.2.0",

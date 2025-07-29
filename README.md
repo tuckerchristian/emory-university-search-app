@@ -48,6 +48,12 @@ This application uses a **direct connection** to Elasticsearch with no backend r
 
 ## 🎯 Features
 
+### 🎨 Modern UI Design
+- **Clean, minimalist interface** inspired by modern search engines
+- **Emory University branding** with logo placement
+- **Responsive design** that works on all devices
+- **Professional color scheme** with blue gradient header
+
 ### 🔍 Search Capabilities
 - **Full-text search** across both `search-emory-main` and `search-emory-news` indices
 - **Search-as-you-type** for instant results
@@ -116,6 +122,8 @@ emory-search/
 │   ├── main.tsx         # React entry point
 │   └── index.css        # Global styles
 ├── public/              # Static assets
+│   ├── emory-logo.png   # Emory University logo (add here)
+│   └── README.md        # Logo placement instructions
 ├── package.json         # Dependencies and scripts
 ├── vite.config.js       # Vite configuration
 ├── tsconfig.json        # TypeScript configuration
@@ -130,6 +138,13 @@ npm run build
 ```
 
 The built files will be in the `dist/` directory, ready for deployment to any static hosting service.
+
+### Logo Setup
+Before deployment, add the Emory University logo:
+1. **Place logo file** in `public/emory-logo.png`
+2. **Recommended size**: 120px × 60px (or similar aspect ratio)
+3. **Format**: PNG with transparent background preferred
+4. **Test locally** to ensure the logo displays correctly
 
 ### Environment Variables
 For production deployment, set these environment variables:
