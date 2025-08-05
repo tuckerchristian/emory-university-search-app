@@ -1,29 +1,28 @@
-import React from 'react';
-import ElasticsearchAPIConnector from '@elastic/search-ui-elasticsearch-connector';
+import React, { useState, useRef, useEffect } from 'react';
+import { HybridSearchConnector } from './HybridSearchConnector';
 import {
   ErrorBoundary,
-  Facet,
   SearchProvider,
-  SearchBox,
-  Results,
   PagingInfo,
   ResultsPerPage,
   Paging,
   WithSearch
 } from '@elastic/react-search-ui';
-import CustomSearchBox from './CustomSearchBox';
+import ElserSearchBox from './ElserSearchBox';
+import IndexSelector from './IndexSelector';
+import AnalyticsResults from './AnalyticsResults';
+import AISummary from './AISummary';
+import AIFallbackSummary from './AIFallbackSummary';
 import {
-  BooleanFacet,
-  Layout,
-  SingleLinksFacet,
-  SingleSelectFacet
+  Layout
 } from '@elastic/react-search-ui-views';
 import '@elastic/react-search-ui-views/lib/styles/styles.css';
 import { SearchDriverOptions } from '@elastic/search-ui';
+import { initializeAnalytics } from './analytics';
 import './App.css';
 
-// Initialize the Elasticsearch connector
-const connector = new ElasticsearchAPIConnector({
+// Initialize the hybrid search connector
+const connector = new HybridSearchConnector({
   host: import.meta.env.VITE_ELASTICSEARCH_ENDPOINT || 'https://ae7515e9dbf14d91a98aa3e445f80c9e.us-east-2.aws.elastic-cloud.com:443',
   apiKey: import.meta.env.VITE_ELASTICSEARCH_API_KEY || '',
   index: 'search-emory-combined'
@@ -42,21 +41,69 @@ const config: SearchDriverOptions = {
       last_crawled_at: { raw: {} },
       domains: { raw: {} },
       url_host: { raw: {} },
-      _index: { raw: {} }
+      _index: { raw: {} },
+      
     },
     search_fields: {
       title: {},
       body_content: {}
     },
-    disjunctiveFacets: ['_index'],
-    facets: {
-      _index: { type: 'value' }
-    }
+    
   },
 
 };
 
-function App() {
+  function App() {
+    // Fixed to ELSER mode only - always use 'elser'
+    const [selectedIndex, setSelectedIndex] = useState<'both' | 'main' | 'news'>('both');
+    const connectorRef = useRef(connector);
+    const [searchKey, setSearchKey] = useState(0); // Force re-render when index changes
+
+    // Set connector to ELSER mode
+    useEffect(() => {
+      connectorRef.current.setSearchMode('elser');
+    }, []);
+
+    // Log AI Summary configuration - now using correct chat_completion endpoint
+    const aiSummaryEnabled = import.meta.env.VITE_AI_SUMMARY_ENABLED === 'true';
+    const inferenceEndpoint = import.meta.env.VITE_INFERENCE_ENDPOINT;
+    
+    useEffect(() => {
+      console.log('🤖 AI Summary Configuration:', {
+        enabled: aiSummaryEnabled,
+        inferenceEndpoint: inferenceEndpoint || 'openai-chat_completion-6j163wqoj8s (default)',
+        component: aiSummaryEnabled ? 'AISummary (Full AI with Chat Completion)' : 'AIFallbackSummary (Local)',
+        searchMode: 'ELSER (AI-Powered Search Only)',
+        apiType: 'chat_completion (OpenAI format)'
+      });
+    }, [aiSummaryEnabled, inferenceEndpoint]);
+
+  // Initialize Behavioral Analytics
+  useEffect(() => {
+    const analyticsEnabled = import.meta.env.VITE_ANALYTICS_ENABLED === 'true';
+    const collectionName = import.meta.env.VITE_ANALYTICS_COLLECTION_NAME;
+    const analyticsDebug = import.meta.env.VITE_ANALYTICS_DEBUG === 'true';
+
+    if (analyticsEnabled && collectionName) {
+      const analyticsApiKey = import.meta.env.VITE_ANALYTICS_API_KEY || import.meta.env.VITE_ELASTICSEARCH_API_KEY;
+      const endpoint = import.meta.env.VITE_ELASTICSEARCH_ENDPOINT;
+      
+      console.log(`🔑 Using ${import.meta.env.VITE_ANALYTICS_API_KEY ? 'dedicated analytics' : 'main application'} API key for analytics`);
+      
+      // Debug mode logging
+      if (analyticsDebug) {
+        console.log('🧪 Analytics debug mode enabled');
+      }
+      
+      initializeAnalytics({
+        endpoint: endpoint,
+        collectionName: collectionName,
+        apiKey: analyticsApiKey,
+        debug: analyticsDebug
+      });
+    }
+  }, []);
+
   const handleLogoLoad = () => {
     console.log('Emory logo loaded successfully');
   };
@@ -65,8 +112,17 @@ function App() {
     console.error('Failed to load Emory logo');
   };
 
+      // Search mode handling removed - ELSER only
+
+  const handleIndexChange = (index: 'both' | 'main' | 'news') => {
+    setSelectedIndex(index);
+    connectorRef.current.setSelectedIndex(index);
+    setSearchKey(prev => prev + 1); // Force re-render
+    console.log(`Switched to ${index.toUpperCase()} index`);
+  };
+
   return (
-    <SearchProvider config={config}>
+    <SearchProvider key={searchKey} config={config}>
       <WithSearch
         mapContextToProps={({ wasSearched, error }) => ({
           wasSearched,
@@ -101,60 +157,34 @@ function App() {
                         />
                         <span>Emory Logo</span>
                       </div>
-                      <h1>Emory University</h1>
-                      <p>Search across Emory University's main site and news content</p>
-                      <CustomSearchBox 
-                        debounceLength={300}
-                        searchAsYouType={true}
-                        autocompleteMinimumCharacters={3}
-                        autocompleteSuggestions={true}
+                      <h1>Emory University AI Search</h1>
+                      <p>Ask questions about Emory using AI-powered Semantic Search</p>
+                                  <IndexSelector
+                                    selectedIndex={selectedIndex}
+                                    onIndexChange={handleIndexChange}
+                                  />
+                                  <ElserSearchBox
+                                    debounceLength={500}
+                                  />
+                    </div>
+                  }
+                                                sideContent={
+                                <div>
+                                  {/* Pre-search index selector is now in the header */}
+                                </div>
+                              }
+                  bodyContent={
+                    <div>
+                      {aiSummaryEnabled ? (
+                        <AISummary />
+                      ) : (
+                        <AIFallbackSummary />
+                      )}
+                      <AnalyticsResults 
+                        searchMode="elser"
+                        selectedIndex={selectedIndex}
                       />
                     </div>
-                  }
-                  sideContent={
-                    <div>
-                      {wasSearched && (
-                        <Facet 
-                          field="_index" 
-                          label="Content Type"
-                          filterType="any"
-                        />
-                      )}
-                    </div>
-                  }
-                  bodyContent={
-                    <Results
-                      titleField="title"
-                      urlField="url"
-                      shouldTrackClickThrough
-                      resultView={({ result }) => (
-                        <div className="result-item">
-                          <h3 className="result-title">
-                            <a href={result.url?.raw} target="_blank" rel="noopener noreferrer">
-                              {result.title?.raw}
-                            </a>
-                          </h3>
-                          <div className="result-meta">
-                            <span className="result-category">
-                              {result._index?.raw === 'search-emory-main' ? 'Main Site' : 'News'}
-                            </span>
-                            {result.last_crawled_at?.raw && (
-                              <span className="result-date">
-                                {new Date(result.last_crawled_at.raw).toLocaleDateString()}
-                              </span>
-                            )}
-                          </div>
-                          <p className="result-content">{result.body_content?.raw}</p>
-                          {result.meta_keywords?.raw && result.meta_keywords.raw.length > 0 && (
-                            <div className="result-tags">
-                              {result.meta_keywords.raw.map((tag: string, index: number) => (
-                                <span key={index} className="result-tag">{tag}</span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    />
                   }
                   bodyHeader={
                     <React.Fragment>

@@ -128,6 +128,11 @@ body {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+/* Ensure search input has proper padding for indicator and button */
+.elser-search-box .sui-search-box__input {
+  padding-right: 160px !important; /* Make room for both indicator and search button */
+}
+
 .sui-search-box__input:focus {
   outline: none;
   border-color: #3b82f6;
@@ -347,6 +352,8 @@ body {
   color: #6b7280;
 }
 
+
+
 .result-content {
   color: #4b5563;
   line-height: 1.6;
@@ -366,4 +373,330 @@ body {
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 500;
-} 
+}
+
+ 
+/* Analytics Results Styles */
+.results-container {
+  width: 100%;
+}
+
+.results-info {
+  margin-bottom: 1.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.results-info p {
+  margin: 0;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+}
+
+.no-results p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* AI Summary Styles */
+.ai-summary-container {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ai-summary-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ai-summary-icon {
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-summary-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.ai-summary-badge {
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.ai-summary-loading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ai-summary-loading p {
+  margin: 0;
+  color: #4a5568;
+  font-style: italic;
+}
+
+.ai-summary-debouncing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(102, 126, 234, 0.05);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.ai-summary-debouncing p {
+  margin: 0;
+  color: #667eea;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.ai-summary-error {
+  background: #fed7d7;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #c53030;
+}
+
+.ai-summary-content {
+  line-height: 1.6;
+}
+
+.ai-summary-text {
+  font-size: 1rem;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  white-space: pre-line;
+}
+
+.ai-summary-sources {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1rem;
+}
+
+.ai-summary-sources h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.source-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.source-number {
+  background: #667eea;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.source-link {
+  color: #3182ce;
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.source-link:hover {
+  text-decoration: underline;
+  color: #2c5aa0;
+}
+
+/* Smart Search Box Styles */
+.smart-search-box {
+  position: relative;
+  width: 100%;
+}
+
+.search-input-container {
+  position: relative;
+}
+
+.search-input.elser-mode {
+  border: 2px solid #667eea !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+  padding-right: 160px !important; /* Make room for both indicator and search button */
+}
+
+.search-input.text-mode {
+  border: 2px solid #e2e8f0 !important;
+}
+
+.search-mode-indicator {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+/* Search mode indicator positioned inside the search input */
+.search-mode-indicator-inside {
+  position: absolute;
+  right: 100px; /* Move left to avoid overlapping with search button */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(102, 126, 234, 0.15);
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  pointer-events: none;
+  z-index: 5; /* Lower z-index to stay behind button */
+  font-size: 0.8rem;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.ai-icon {
+  font-size: 1rem;
+}
+
+/* Styles for the inside indicator elements */
+.search-mode-indicator-inside .ai-icon {
+  font-size: 0.9rem;
+}
+
+.search-mode-indicator-inside .mode-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.mode-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #667eea;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f7fafc;
+  transition: background-color 0.15s ease;
+}
+
+.suggestion-item:hover {
+  background-color: #f7fafc;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-icon {
+  color: #a0aec0;
+  font-size: 0.875rem;
+}
+
+.suggestion-text {
+  color: #2d3748;
+  font-size: 0.9rem;
+}
+
+.elser-search-hint {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(102, 126, 234, 0.05);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 8px;
+}
+
+.elser-search-hint p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4a5568;
+  line-height: 1.4;
+}

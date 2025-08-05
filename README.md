@@ -18,6 +18,11 @@ Edit `.env` with your Elasticsearch configuration:
 ```env
 VITE_ELASTICSEARCH_ENDPOINT=https://your-deployment.es.us-east-1.aws.cloud.es.io
 VITE_ELASTICSEARCH_API_KEY=your_api_key_here
+
+# Behavioral Analytics (optional)
+VITE_ANALYTICS_COLLECTION_NAME=emory-search-analytics
+VITE_ANALYTICS_ENABLED=true
+VITE_ANALYTICS_DEBUG=false
 ```
 
 ### 3. Start Development Server
@@ -55,10 +60,10 @@ This application uses a **direct connection** to Elasticsearch with no backend r
 - **Professional color scheme** with blue gradient header
 
 ### 🔍 Search Capabilities
-- **Full-text search** across both `search-emory-main` and `search-emory-news` indices
-- **Search-as-you-type** for instant results
-- **Autocomplete suggestions** from titles and content
-- **Fuzzy matching** for typo tolerance
+- **AI-Powered ELSER Search** using Elasticsearch's semantic search model
+- **Natural Language Queries** - Ask questions like "What are Emory's admission requirements?"
+- **Multi-Index Support** across both `search-emory-main` and `search-emory-news` indices
+- **No Search-as-You-Type** - Optimized for complete, thoughtful questions
 
 ### 🏷️ Faceted Search
 - **Content Type** - Filter between Main Site and News content
@@ -68,6 +73,20 @@ This application uses a **direct connection** to Elasticsearch with no backend r
 - **Pagination** with configurable page sizes
 - **Sorting** by relevance
 - **Result highlighting** for search terms
+
+### 📊 Behavioral Analytics
+- **Search Tracking** - Monitor user search patterns and queries
+- **Click Analytics** - Track result clicks and user engagement
+- **GDPR Compliant** - Anonymous tracking with no personal data
+- **Real-time Insights** - View analytics in Kibana dashboards
+- **Custom Events** - Track search modes, index selection, and more
+
+### 🤖 AI-Powered Summaries
+- **ELSER Integration** - AI summaries for all search results
+- **Natural Language Queries** - Optimized for conversational search
+- **Source Citations** - Links back to original content
+- **Extractive Summarization** - Works without external AI services
+- **Contextual Answers** - Provides comprehensive responses to user questions
 - **Click tracking** for analytics
 
 ### 🎨 Custom Result Display
@@ -168,6 +187,19 @@ For production deployment, consider using:
 The application searches across two indices:
 - **`search-emory-main`** - Main Emory University website content
 - **`search-emory-news`** - News and announcements content
+
+## 📚 Documentation
+
+### Behavioral Analytics Setup
+For detailed instructions on setting up and using Behavioral Analytics, see:
+- **[BEHAVIORAL_ANALYTICS_SETUP.md](./BEHAVIORAL_ANALYTICS_SETUP.md)** - Complete setup guide
+- **[Elastic Behavioral Analytics Docs](https://www.elastic.co/guide/en/elasticsearch/reference/8.18/behavioral-analytics-overview.html)** - Official documentation
+
+### Additional Resources
+- **AI Summary Setup**: See `AI_SUMMARY_SETUP.md` for AI summary configuration
+- **Production Deployment**: See `PRODUCTION_DEPLOYMENT.md` for deployment instructions
+- **Search UI Documentation**: [Elastic Search UI](https://docs.elastic.co/search-ui/overview)
+- **Elasticsearch Reference**: [Official Elasticsearch Docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ## 🤝 Contributing
 
