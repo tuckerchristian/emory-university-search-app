@@ -25,10 +25,38 @@ Edit `.env` with your Elasticsearch configuration:
 VITE_ELASTICSEARCH_ENDPOINT=https://your-deployment.es.us-east-1.aws.cloud.es.io
 VITE_ELASTICSEARCH_API_KEY=your_api_key_here
 
-# Behavioral Analytics (optional)
-VITE_ANALYTICS_COLLECTION_NAME=emory-search-analytics
+
+# Analytics API Key (for behavioral analytics)
+# Permissions: write to analytics collections, manage_behavioral_analytics
+VITE_ANALYTICS_API_KEY=your_api_key_here
+
+# Optional: Debug mode for development
+# VITE_DEBUG=true
+
+# Behavioral Analytics Configuration
+# Collection name for your analytics (create this in Kibana)
+VITE_ANALYTICS_COLLECTION_NAME=analytics-collection-name
+
+# Enable/disable analytics tracking
 VITE_ANALYTICS_ENABLED=true
+
+# Optional: Debug mode for analytics
 VITE_ANALYTICS_DEBUG=false
+
+VITE_AI_SUMMARY_ENABLED=true
+VITE_INFERENCE_ENDPOINT=inference-endpoint-name
+
+# Elastic RUM Configuration
+# Enable/disable Elastic Real User Monitoring
+VITE_ELASTIC_RUM_ENABLED=true
+
+# Elastic APM Server URL for RUM
+VITE_ELASTIC_RUM_SERVER_URL=https://your-apm-server.es.us-east-1.aws.cloud.es.io:443
+
+# Service configuration for RUM
+VITE_ELASTIC_RUM_SERVICE_NAME=rum-service-name
+VITE_ELASTIC_RUM_SERVICE_VERSION=1.0.0
+VITE_ELASTIC_RUM_ENVIRONMENT=environment
 ```
 
 ### 3. Start Development Server
