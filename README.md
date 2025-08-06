@@ -2,6 +2,12 @@
 
 A modern, responsive search interface for Emory University content, powered by Elasticsearch and built with the official Elastic Search UI library.
 
+## 📸 Demo
+
+![Emory Search Interface](./docs/images/Emory-Search.png)
+
+*AI-powered semantic search interface with ELSER technology, featuring natural language queries and intelligent result summaries.*
+
 ## 🚀 Quick Start
 
 ### 1. Install Dependencies
